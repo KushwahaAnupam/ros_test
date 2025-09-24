@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // Source your ROS2 install and workspace overlays
         ROS_DISTRO = 'humble'
         WORKSPACE = "${env.WORKSPACE}"
+        PACKAGE = 'hello_publisher'  // Replace with your actual ROS2 package name
     }
 
     stages {
@@ -15,25 +15,14 @@ pipeline {
             }
         }
 
-        stage('Setup ROS2 Environment') {
-            steps {
-                echo 'Setting up ROS2 environment...'
-                // Source ROS2 Humble and workspace setup.bash
-                sh '''
-                  . /opt/ros/${ROS_DISTRO}/setup.bash
-                  # You can source overlay if you have one:
-                  # source ${WORKSPACE}/install/setup.bash || true
-                '''
-            }
-        }
-
-
         stage('Build') {
             steps {
                 echo 'Building ROS2 workspace with colcon...'
                 sh '''
-                  . /opt/ros/${ROS_DISTRO}/setup.bash
-                  colcon build --packages-select your_package_name --symlink-install
+                  bash -c "
+                    source /opt/ros/${ROS_DISTRO}/setup.bash &&
+                    colcon build --packages-select ${PACKAGE} --symlink-install
+                  "
                 '''
             }
         }
@@ -42,10 +31,12 @@ pipeline {
             steps {
                 echo 'Running tests with colcon test...'
                 sh '''
-                  . /opt/ros/${ROS_DISTRO}/setup.bash
-                  . install/setup.bash
-                  . test --packages-select your_package_name
-                  . test-result --verbose
+                  bash -c "
+                    source /opt/ros/${ROS_DISTRO}/setup.bash &&
+                    source install/setup.bash &&
+                    colcon test --packages-select ${PACKAGE} &&
+                    colcon test-result --verbose
+                  "
                 '''
             }
         }
