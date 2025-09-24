@@ -20,7 +20,7 @@ pipeline {
                 echo 'Setting up ROS2 environment...'
                 // Source ROS2 Humble and workspace setup.bash
                 sh '''
-                  source /opt/ros/${ROS_DISTRO}/setup.bash
+                  . /opt/ros/${ROS_DISTRO}/setup.bash
                   # You can source overlay if you have one:
                   # source ${WORKSPACE}/install/setup.bash || true
                 '''
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo 'Building ROS2 workspace with colcon...'
                 sh '''
-                  source /opt/ros/${ROS_DISTRO}/setup.bash
+                  . /opt/ros/${ROS_DISTRO}/setup.bash
                   colcon build --packages-select your_package_name --symlink-install
                 '''
             }
@@ -42,10 +42,10 @@ pipeline {
             steps {
                 echo 'Running tests with colcon test...'
                 sh '''
-                  source /opt/ros/${ROS_DISTRO}/setup.bash
-                  source install/setup.bash
-                  colcon test --packages-select your_package_name
-                  colcon test-result --verbose
+                  . /opt/ros/${ROS_DISTRO}/setup.bash
+                  . install/setup.bash
+                  . test --packages-select your_package_name
+                  . test-result --verbose
                 '''
             }
         }
