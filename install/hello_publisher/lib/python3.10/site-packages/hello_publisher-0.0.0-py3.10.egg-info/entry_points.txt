@@ -1,0 +1,3 @@
+[console_scripts]
+hello_node = hello_publisher.hello_node:main
+
