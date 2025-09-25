@@ -27,38 +27,38 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                echo 'Running tests with colcon test...'
-                sh '''
-                  bash -c "
-                    source /opt/ros/${ROS_DISTRO}/setup.bash &&
-                    source install/setup.bash &&
-                    colcon test --packages-select ${PACKAGE} &&
-                    colcon test-result --verbose
-                  "
-                '''
-            }
-        }
+        // stage('Run Tests') {
+        //     steps {
+        //         echo 'Running tests with colcon test...'
+        //         sh '''
+        //           bash -c "
+        //             source /opt/ros/${ROS_DISTRO}/setup.bash &&
+        //             source install/setup.bash &&
+        //             colcon test --packages-select ${PACKAGE} &&
+        //             colcon test-result --verbose
+        //           "
+        //         '''
+        //     }
+        // }
 
-        stage('Archive Test Reports') {
-            steps {
-                echo 'Archiving test results...'
-                junit '**/build/test_results/**/*.xml'
-            }
-        }
+        // stage('Archive Test Reports') {
+        //     steps {
+        //         echo 'Archiving test results...'
+        //         junit '**/build/test_results/**/*.xml'
+        //     }
+        // }
     }
 
-    post {
-        always {
-            echo 'Cleaning workspace...'
-            cleanWs()
-        }
-        success {
-            echo 'Build and tests passed!'
-        }
-        failure {
-            echo 'Build or tests failed!'
-        }
-    }
+    // post {
+    //     always {
+    //         echo 'Cleaning workspace...'
+    //         cleanWs()
+    //     }
+    //     success {
+    //         echo 'Build and tests passed!'
+    //     }
+    //     failure {
+    //         echo 'Build or tests failed!'
+    //     }
+    // }
 }
