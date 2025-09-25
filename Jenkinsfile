@@ -36,7 +36,7 @@ pipeline {
                     bash -c "
                       source /opt/ros/${ROS_DISTRO}/setup.bash &&
                       source install/setup.bash &&
-                      ros2 run ${PACKAGE} hello_publisher
+                      ros2 run ${PACKAGE} hello_node
                     "
                   '''
                 }
