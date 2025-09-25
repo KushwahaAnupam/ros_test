@@ -27,6 +27,20 @@ pipeline {
             }
         }
 
+
+        stage('Run Publisher') {
+            steps {
+                echo 'Running the ROS2 publisher node...'
+                sh '''
+                  bash -c "
+                    source /opt/ros/${ROS_DISTRO}/setup.bash &&
+                    source install/setup.bash &&
+                    ros2 run ${PACKAGE} hello_publisher
+                  "
+                '''
+            }
+        }
+
         // stage('Run Tests') {
         //     steps {
         //         echo 'Running tests with colcon test...'
