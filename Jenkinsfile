@@ -30,7 +30,7 @@ pipeline {
 
         stage('Run Publisher') {
             steps {
-                timeout(time: 10, unit: 'SECONDS') {
+                // timeout(time: 10, unit: 'SECONDS') {
                   echo 'Running the ROS2 publisher node...'
                   sh '''
                     bash -c "
@@ -39,7 +39,7 @@ pipeline {
                       ros2 run ${PACKAGE} hello_node
                     "
                   '''
-                }
+                // }
             }
         }
 
