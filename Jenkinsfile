@@ -5,6 +5,8 @@ pipeline {
         ROS_DISTRO = 'humble'
         WORKSPACE = "${env.WORKSPACE}"
         PACKAGE = 'hello_publisher'  // Replace with your actual ROS2 package name
+        ROS_LOCALHOST_ONLY = '0'
+        ROS_DOMAIN_ID = '10'
     }
 
     stages {
