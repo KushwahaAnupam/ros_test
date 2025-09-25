@@ -36,6 +36,8 @@ pipeline {
                   echo 'Running the ROS2 publisher node...'
                   sh '''
                     bash -c "
+                      echo $ROS_LOCALHOST_ONLY
+                      echo $ROS_DOMAIN_ID
                       source /opt/ros/${ROS_DISTRO}/setup.bash &&
                       source install/setup.bash &&
                       ros2 run ${PACKAGE} hello_node
