@@ -30,14 +30,16 @@ pipeline {
 
         stage('Run Publisher') {
             steps {
-                echo 'Running the ROS2 publisher node...'
-                sh '''
-                  bash -c "
-                    source /opt/ros/${ROS_DISTRO}/setup.bash &&
-                    source install/setup.bash &&
-                    ros2 run ${PACKAGE} hello_publisher
-                  "
-                '''
+                timeout(time: 10, unit: 'SECONDS') {
+                  echo 'Running the ROS2 publisher node...'
+                  sh '''
+                    bash -c "
+                      source /opt/ros/${ROS_DISTRO}/setup.bash &&
+                      source install/setup.bash &&
+                      ros2 run ${PACKAGE} hello_publisher
+                    "
+                  '''
+                }
             }
         }
 
