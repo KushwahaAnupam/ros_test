@@ -44,7 +44,7 @@ class HelloPublisher(Node):
         # MQTT Client Setup
         self.mqtt_client = mqtt.Client()
         try:
-            self.mqtt_client.connect("192.168.1.226", 1883, 60)
+            self.mqtt_client.connect("10.88.0.1", 1883, 60)
             self.get_logger().info('Connected to MQTT broker at 10.88.0.1')
         except Exception as e:
             self.get_logger().error(f'Failed to connect to MQTT broker: {e}')
