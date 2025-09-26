@@ -29,6 +29,15 @@ pipeline {
             }
         }
 
+        stage('Check MQTT Connectivity') {
+            steps {
+              sh '''
+                 echo "Testing connection to 10.88.0.1 on port 1883"
+                 nc -zv 10.88.0.1 1883
+              '''
+           }
+         }
+
 
         stage('Run Publisher') {
             steps {
