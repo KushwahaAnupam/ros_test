@@ -32,6 +32,12 @@ pipeline {
 
         stage('Run Publisher') {
             steps {
+                   echo 'Installing Python requirements...'
+                   sh '''
+                      bash -c "
+                          python3 -m pip install paho-mqtt
+                     "
+                   '''
                 // timeout(time: 10, unit: 'SECONDS') {
                   echo 'Running the ROS2 publisher node...'
                   sh '''
